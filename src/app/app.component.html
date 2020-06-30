@@ -1,0 +1,13 @@
+
+<div class="calculator">
+<hello name="{{ name }}" style="text-shadow: 0px 0px 2px #000000;"></hello>
+<div>
+  <input type=text class="result" readonly value="{{result}}">
+</div>
+<div>
+  <button class="responsive long" *ngFor="let longButton of longButtons" (click)="add(longButton)">{{longButton}}</button>
+</div>
+<div>
+  <button class="responsive" *ngFor="let button of buttons" (click)="add(button)">{{button}}</button>
+</div>
+</div>

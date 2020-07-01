@@ -31,7 +31,7 @@ export class AppComponent {
       this.result=this.prev!='=' ? this.result.slice(0,-1) : this.result;
     }
     else if(value=='=') {
-      if(!((this.result.startsWith('sqrt'))||(this.result.startsWith('sqr'))||(this.result.startsWith('log'))||(this.result.startsWith('pi')))) {
+      if(!((this.result.startsWith('sqrt'))||(this.result.startsWith('sqr'))||(this.result.startsWith('log'))||(this.result.startsWith('pi'))||(this.result.startsWith('exp')))) {
         this.result=eval(this.result);
       } 
       if((this.result.startsWith('sqrt'))) {

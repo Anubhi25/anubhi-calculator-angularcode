@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ]
 })
-export class AppComponent  {
+export class AppComponent {
+
   name = 'Calculator';
   required:string='';
   result:string='';
   longButtons:string[]=['AC','CE'];
-  buttons:string[]=['sqrt','sqr','log','%','7','8','9','/','4','5','6','*','1','2','3','-','.','0','=','+'];
+  buttons:string[]=['sqrt','sqr','log','%','exp','pi','(',')','7','8','9','/','4','5','6','*','1','2','3','-','.','0','=','+'];
   private prev:string='';
   private curr:string='';
   n1:number=0;
@@ -29,12 +31,12 @@ export class AppComponent  {
       this.result=this.prev!='=' ? this.result.slice(0,-1) : this.result;
     }
     else if(value=='=') {
-      if(!((this.result.startsWith('sqrt'))||(this.result.startsWith('sqr'))|| (this.result.startsWith('log')))) {
+      if(!((this.result.startsWith('sqrt'))||(this.result.startsWith('sqr'))||(this.result.startsWith('log'))||(this.result.startsWith('pi')))) {
         this.result=eval(this.result);
       } 
       if((this.result.startsWith('sqrt'))) {
         this.required=this.result.substr(4);
-        this.n1=Math.sqrt(Number(this.required));
+        this.n1=Number(Math.sqrt(Number(this.required)).toFixed(10));
         this.result=this.n1.toString();
       }
       if((this.result.startsWith('sqr'))) {
@@ -44,9 +46,14 @@ export class AppComponent  {
       }
       if((this.result.startsWith('log'))) {
         this.required=this.result.substr(3);
-        this.n1=Math.log(Number(this.required));
+        this.n1=Number(Math.log(Number(this.required)).toFixed(10));
         this.result=this.n1.toString();
       }
+      if((this.result.startsWith('exp'))) {
+        this.required=this.result.substr(3);
+        this.n1=Number(Math.exp(Number(this.required)).toFixed(10));
+        this.result=this.n1.toString();
+      }   
     }
     else if((value=='/'&&this.result=='')||(value=='+'&&this.result=='')||(value=='*'&&this.result=='')||(value=='%'&&this.result=='')) {
       this.result='';
@@ -70,6 +77,20 @@ export class AppComponent  {
       this.required=this.result.substr(3);
       if(this.required.includes('log')) {
         this.result='log';
+      }
+    }
+    else if(value=='exp') {
+      this.result+=value;
+      this.required=this.result.substr(3);
+      if(this.required.includes('exp')) {
+        this.result='exp';
+      }
+    }
+    else if(value=='pi') {
+      this.result=3.14.toString();
+      this.required=this.result.substr(2);
+      if(this.required.includes('pi')) {
+        this.result='3.14';
       }
     }
     else 

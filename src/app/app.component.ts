@@ -17,6 +17,8 @@ export class AppComponent {
   private curr:string='';
   n1:number=0;
   fact:number=1;
+  j:number=0;
+  k:number=0;
   add(value:string) {
     if(this.result!='') {
        this.prev=this.curr;
@@ -31,6 +33,19 @@ export class AppComponent {
       this.result=this.prev!='=' ? this.result.slice(0,-1) : this.result;
     }
     else if(value=='=') {
+      if(this.result.includes('(')) {
+          for(var i=0; i<=this.result.length;i++) {
+            var char=this.result.charAt(i);
+            var prevchar=this.result.charAt(i-1);
+            if((char=='(') && (prevchar=='0' ||prevchar=='1' || prevchar=='2'|| prevchar=='3'|| prevchar=='4'|| prevchar=='5'|| prevchar=='6'|| prevchar=='7'|| prevchar=='8'|| prevchar=='9')) {
+              var index=this.result.indexOf(char);
+              this.result=this.result.slice(0,index) + "*" + this.result.substr(index);
+            }
+          }
+          console.log(this.result);
+            this.result=eval(this.result);            
+        }
+
       if(!((this.result.startsWith('sqrt'))||(this.result.startsWith('sqr'))||(this.result.startsWith('log'))||(this.result.startsWith('pi'))||(this.result.startsWith('exp')))) {
         this.result=eval(this.result);
       } 
@@ -92,11 +107,29 @@ export class AppComponent {
       if(this.required.includes('pi')) {
         this.result='3.14';
       }
+    } else if(value=='.') {
+      this.required=this.result.substr(0);
+      if(!this.required.includes('.')) {
+        this.result+=value;
+      }
+      if(this.prev=='('||this.prev==')'||this.prev=='-'||this.prev=='+'||this.prev=='*'||this.prev=='/'||this.prev=='%') {
+        this.result+=value;
+      }
+    }
+    else if(value=='(') {
+      this.result+=value;
+      this.j+=1;
+    }
+    else if(value==')') {
+      if(this.k<this.j) {
+      this.result+=value;
+      this.k+=1;
+      }
     }
     else 
     {
         if(!((this.prev=='+' && this.curr=='+')
-        ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')))
+        ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr==')')||(this.prev=='.' && this.curr=='(')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')))
         {
               this.result+=value;
         }

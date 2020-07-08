@@ -104,6 +104,10 @@ export class AppComponent {
         this.subresult+=value;
       }
     }
+    else if(value=='+/-') {
+      this.subresult+='-';
+      this.result=this.subresult;
+    }
     
     else 
     {

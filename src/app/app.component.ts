@@ -11,21 +11,25 @@ export class AppComponent {
   name = 'Calculator';
   required:string='';
   result:string='';
+  subresult:string='';
   longButtons:string[]=['AC','CE'];
-  buttons:string[]=['sqrt','sqr','log','%','exp','pi','(',')','7','8','9','/','4','5','6','*','1','2','3','-','.','0','=','+'];
+  buttons:string[]=['sqrt','sqr','log','%','exp','pi','+/-','1/x','7','8','9','/','4','5','6','*','1','2','3','-','.','0','=','+'];
   private prev:string='';
   private curr:string='';
+  lasttoken:string='';
+  beforelasttoken:string='';
   n1:number=0;
   fact:number=1;
   j:number=0;
   k:number=0;
   add(value:string) {
-    if(this.result!='') {
+    if(this.subresult!='') {
        this.prev=this.curr;
        this.curr=value;
     }
     if(value=='AC') {
       this.result='';
+      this.subresult='';
       this.prev='';
       this.curr='';
     }
@@ -33,105 +37,87 @@ export class AppComponent {
       this.result=this.prev!='=' ? this.result.slice(0,-1) : this.result;
     }
     else if(value=='=') {
-      if(this.result.includes('(')) {
-          for(var i=0; i<=this.result.length;i++) {
-            var char=this.result.charAt(i);
-            var prevchar=this.result.charAt(i-1);
-            if((char=='(') && (prevchar=='0' ||prevchar=='1' || prevchar=='2'|| prevchar=='3'|| prevchar=='4'|| prevchar=='5'|| prevchar=='6'|| prevchar=='7'|| prevchar=='8'|| prevchar=='9')) {
-              var index=this.result.indexOf(char);
-              this.result=this.result.slice(0,index) + "*" + this.result.substr(index);
-            }
-          }
-          console.log(this.result);
-            this.result=eval(this.result);            
-        }
 
-      if(!((this.result.startsWith('sqrt'))||(this.result.startsWith('sqr'))||(this.result.startsWith('log'))||(this.result.startsWith('pi'))||(this.result.startsWith('exp')))) {
-        this.result=eval(this.result);
+      if(!((this.subresult.includes('sqrt'))||(this.subresult.includes('sqr'))||(this.subresult.includes('log'))||(this.subresult.includes('pi'))||(this.subresult.includes('exp')))) {
+
+        this.subresult=this.result+this.beforelasttoken+this.lasttoken;
+        this.result=eval(this.subresult);
       } 
-      if((this.result.startsWith('sqrt'))) {
-        this.required=this.result.substr(4);
+      if((this.subresult.includes('sqrt'))) {
+        var index=this.subresult.indexOf('sqrt');
+        this.required=this.subresult.slice(0,index);
         this.n1=Number(Math.sqrt(Number(this.required)).toFixed(10));
         this.result=this.n1.toString();
       }
-      if((this.result.startsWith('sqr'))) {
-        this.required=this.result.substr(3);
+      if((this.subresult.includes('sqr'))) {
+        var index=this.subresult.indexOf('sqr');
+        this.required=this.subresult.slice(0,index);
         this.n1=Math.pow((Number(this.required)),2);
         this.result=this.n1.toString();
       }
-      if((this.result.startsWith('log'))) {
-        this.required=this.result.substr(3);
+      if((this.subresult.includes('log'))) {
+        var index=this.subresult.indexOf('log');
+        this.required=this.subresult.slice(0,index);
         this.n1=Number(Math.log(Number(this.required)).toFixed(10));
         this.result=this.n1.toString();
       }
-      if((this.result.startsWith('exp'))) {
-        this.required=this.result.substr(3);
+      if((this.subresult.includes('exp'))) {
+        var index=this.subresult.indexOf('exp');
+        this.required=this.subresult.slice(0,index);
         this.n1=Number(Math.exp(Number(this.required)).toFixed(10));
         this.result=this.n1.toString();
       }   
     }
-    else if((value=='/'&&this.result=='')||(value=='+'&&this.result=='')||(value=='*'&&this.result=='')||(value=='%'&&this.result=='')) {
-      this.result='';
+    else if((value=='/'&&this.subresult=='')||(value=='+'&&this.subresult=='')||(value=='*'&&this.subresult=='')||(value=='%'&&this.subresult=='')) {
+      this.subresult='';
     }
     else if(value=='sqrt') {
-      this.result+=value;
-      this.required=this.result.substr(4);
-      if(this.required.includes('sqrt')) {
-        this.result='sqrt';
-      }
+      if(!this.subresult.includes('sqrt')) {
+        this.subresult+=value;
+    }
     }
      else if(value=='sqr') {
-      this.result+=value;
-      this.required=this.result.substr(3);
-      if(this.required.includes('sqr')) {
-        this.result='sqr';
-      }
+      if(!this.subresult.includes('sqr')) {
+        this.subresult+=value;
+    }
     }
      else if(value=='log') {
-      this.result+=value;
-      this.required=this.result.substr(3);
-      if(this.required.includes('log')) {
-        this.result='log';
-      }
+      if(!this.subresult.includes('log')) {
+        this.subresult+=value;
+    }
     }
     else if(value=='exp') {
-      this.result+=value;
-      this.required=this.result.substr(3);
-      if(this.required.includes('exp')) {
-        this.result='exp';
-      }
+      if(!this.subresult.includes('exp')) {
+        this.subresult+=value;
+    }
     }
     else if(value=='pi') {
-      this.result=3.14.toString();
-      this.required=this.result.substr(2);
-      if(this.required.includes('pi')) {
-        this.result='3.14';
-      }
+      if(!this.subresult.includes('pi')) {
+        this.subresult=3.14.toString();
+        this.result=3.14.toString();
+    }
     } else if(value=='.') {
-      this.required=this.result.substr(0);
-      if(!this.required.includes('.')) {
-        this.result+=value;
+      if(!this.subresult.includes('.')) {
+        this.subresult+=value;
       }
-      if(this.prev=='('||this.prev==')'||this.prev=='-'||this.prev=='+'||this.prev=='*'||this.prev=='/'||this.prev=='%') {
-        this.result+=value;
-      }
-    }
-    else if(value=='(') {
-      this.result+=value;
-      this.j+=1;
-    }
-    else if(value==')') {
-      if(this.k<this.j) {
-      this.result+=value;
-      this.k+=1;
+      if(this.prev=='-'||this.prev=='+'||this.prev=='*'||this.prev=='/'||this.prev=='%') {
+        this.subresult+=value;
       }
     }
+    
     else 
     {
         if(!((this.prev=='+' && this.curr=='+')
-        ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr==')')||(this.prev=='.' && this.curr=='(')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')))
+        ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')))
         {
-              this.result+=value;
+              if(this.subresult.length<15) {
+            this.subresult+=value;
+            this.result=eval(this.subresult);
+            this.lasttoken=this.subresult[this.subresult.length-1];
+            this.beforelasttoken=this.subresult[this.subresult.length-2];
+            console.log(this.lasttoken);
+            console.log(this.beforelasttoken);
+        }
         }
     }
    }

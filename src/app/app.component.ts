@@ -34,7 +34,7 @@ export class AppComponent {
       this.curr='';
     }
     else if(value=='CE') {
-      this.result=this.prev!='=' ? this.result.slice(0,-1) : this.result;
+      this.subresult=this.prev!='=' ? this.subresult.slice(0,-1) : this.subresult;
     }
     else if(value=='=') {
 

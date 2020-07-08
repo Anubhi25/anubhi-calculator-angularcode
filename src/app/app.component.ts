@@ -108,6 +108,11 @@ export class AppComponent {
       this.subresult+='-';
       this.result=this.subresult;
     }
+    else if(value=='1/x') {
+      this.n1=1/Number(this.subresult);
+      this.subresult=this.n1.toString();
+      this.result=this.n1.toString();
+    }
     
     else 
     {
@@ -122,8 +127,6 @@ export class AppComponent {
             this.result=eval(this.subresult).toFixed(5);
             this.lasttoken=this.subresult[this.subresult.length-1];
             this.beforelasttoken=this.subresult[this.subresult.length-2];
-            console.log(this.lasttoken);
-            console.log(this.beforelasttoken);
         }
         }
     }

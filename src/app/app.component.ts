@@ -41,7 +41,7 @@ export class AppComponent {
     else if(value=='=') {
 
       if(!((this.subresult.includes('sqrt'))||(this.subresult.includes('sqr'))||(this.subresult.includes('log'))||(this.subresult.includes('pi'))||(this.subresult.includes('exp')))) {
-
+        if(this.subresult.length<15) 
         this.subresult=this.result+this.beforelasttoken+this.lasttoken;
         this.result=eval(this.subresult);
       } 
@@ -112,8 +112,8 @@ export class AppComponent {
     }
     else if(value=='1/x') {
       this.n1=1/Number(this.subresult);
-      this.subresult=this.n1.toString();
-      this.result=this.n1.toString();
+      this.subresult=this.n1.toFixed(5).toString();
+      this.result=this.n1.toFixed(5).toString();
     }
     else if(value=='+'||value=='-'||value=='*'||value=='/'||value=='%') {
       this.isFloat='false';

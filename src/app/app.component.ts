@@ -105,8 +105,10 @@ export class AppComponent {
       }        
     }
     else if(value=='+/-') {
-      this.result='-'+this.result;
+      this.required='this.result*(-1)';
+      this.result=eval(this.required);
       this.subresult=this.result;
+      
     }
     else if(value=='1/x') {
       this.n1=1/Number(this.subresult);

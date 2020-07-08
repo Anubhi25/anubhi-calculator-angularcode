@@ -107,8 +107,7 @@ export class AppComponent {
     else if(value=='+/-') {
       this.required='this.result*(-1)';
       this.result=eval(this.required);
-      this.subresult=this.result;
-      
+      this.subresult=this.result;   
     }
     else if(value=='1/x') {
       this.n1=1/Number(this.subresult);
@@ -125,7 +124,7 @@ export class AppComponent {
         if(!((this.prev=='+' && this.curr=='+')
         ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')||(this.curr=='+/-')))
         {
-              if(this.subresult.length<15) {
+            if(this.subresult.length<15) {
             this.subresult+=value;
             if(Number.isInteger(eval(this.subresult))) 
             this.result=eval(this.subresult);

@@ -22,6 +22,7 @@ export class AppComponent {
   fact:number=1;
   j:number=0;
   k:number=0;
+  isFloat="false";
   add(value:string) {
     if(this.subresult!='') {
        this.prev=this.curr;
@@ -32,6 +33,7 @@ export class AppComponent {
       this.subresult='';
       this.prev='';
       this.curr='';
+      this.isFloat='false';
     }
     else if(value=='CE') {
       this.subresult=this.prev!='=' ? this.subresult.slice(0,-1) : this.subresult;
@@ -97,12 +99,10 @@ export class AppComponent {
         this.result=3.14.toString();
     }
     } else if(value=='.') {
-      if(!this.subresult.includes('.')) {
+      if(this.isFloat=='false') {
         this.subresult+=value;
-      }
-      if(this.prev=='-'||this.prev=='+'||this.prev=='*'||this.prev=='/'||this.prev=='%') {
-        this.subresult+=value;
-      }
+        this.isFloat='true';
+      }        
     }
     else if(value=='+/-') {
       this.result='-'+this.result;
@@ -111,6 +111,10 @@ export class AppComponent {
       this.n1=1/Number(this.subresult);
       this.subresult=this.n1.toString();
       this.result=this.n1.toString();
+    }
+    else if(value=='+'||value=='-'||value=='*'||value=='/'||value=='%') {
+      this.isFloat='false';
+      this.subresult+=value;
     }
     
     else 

@@ -105,8 +105,7 @@ export class AppComponent {
       }
     }
     else if(value=='+/-') {
-      this.subresult+='-';
-      this.result=this.subresult;
+      this.result='-'+this.result;
     }
     else if(value=='1/x') {
       this.n1=1/Number(this.subresult);
@@ -117,7 +116,7 @@ export class AppComponent {
     else 
     {
         if(!((this.prev=='+' && this.curr=='+')
-        ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')))
+        ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')||(this.prev=='+/-')))
         {
               if(this.subresult.length<15) {
             this.subresult+=value;
@@ -128,6 +127,18 @@ export class AppComponent {
             this.lasttoken=this.subresult[this.subresult.length-1];
             this.beforelasttoken=this.subresult[this.subresult.length-2];
         }
+        }
+        else {
+          if(this.subresult.length<15) {
+          this.subresult=this.result;
+          this.subresult+=value;
+          if(Number.isInteger(eval(this.subresult))) 
+            this.result=eval(this.subresult);
+            else
+            this.result=eval(this.subresult).toFixed(5);
+            this.lasttoken=this.subresult[this.subresult.length-1];
+            this.beforelasttoken=this.subresult[this.subresult.length-2];
+          }
         }
     }
    }

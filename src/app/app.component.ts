@@ -133,11 +133,11 @@ export class AppComponent {
             this.result=eval(this.subresult).toFixed(5);
             }
             this.result=this.result.toString();
-            for(var i=this.result.length;i>0;i-3) {
+            /*for(var i=this.result.length;i>0;i-3) {
               var temp=this.result.length-3;
               this.result=this.result.slice(0,temp)+','+this.result.slice(temp);
-            }
-            this.result=this.subresult.concat(this.subresult,',');
+            }*/
+  
             this.lasttoken=this.subresult[this.subresult.length-1];
             this.beforelasttoken=this.subresult[this.subresult.length-2];
         }

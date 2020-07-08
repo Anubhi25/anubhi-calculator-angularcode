@@ -134,9 +134,10 @@ export class AppComponent {
             }
             this.result=this.result.toString();
             if(this.result.length>3) {
-              var i=this.result.length;
-                var temp=i/3;
-                this.result=this.result.slice(0,temp)+','+this.result.slice(temp);
+              var i= this.result.length;
+              var temp=i-3;
+              this.result=this.result.slice(0,temp)+','+this.result.slice(temp);
+                
             }
   
             this.lasttoken=this.subresult[this.subresult.length-1];

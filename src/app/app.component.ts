@@ -126,14 +126,19 @@ export class AppComponent {
         {
             if(this.subresult.length<15) {
             this.subresult+=value;
-            if(Number.isInteger(eval(this.subresult))) 
-            this.result=eval(this.subresult);
-            else
+            if(Number.isInteger(eval(this.subresult))) {
+            this.result=eval(this.subresult);           
+            }
+            else {
             this.result=eval(this.subresult).toFixed(5);
+            }
+
+            this.result=this.subresult.concat(this.subresult,',');
             this.lasttoken=this.subresult[this.subresult.length-1];
             this.beforelasttoken=this.subresult[this.subresult.length-2];
         }
         }
+       
     }
    }
    } 

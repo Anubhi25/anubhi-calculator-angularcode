@@ -133,8 +133,28 @@ export class AppComponent {
             this.subresult+=value;
             this.result=eval(this.subresult);           
             this.result=this.result.toLocaleString();
-            this.lasttoken=this.subresult[this.subresult.length-1];
-            this.beforelasttoken=this.subresult[this.subresult.length-2];
+            this.subresult=this.subresult.toString();
+            var flag=0;
+            var i=this.subresult.length-1;
+            console.log(this.subresult.length);
+            while(i>0) {
+              if(this.subresult[i]==='-' || this.subresult[i]==='+' || this.subresult[i]==='/' || this.subresult[i]==='%' || this.subresult[i]==='*') {
+                 var index=i;
+                 var flag=1;
+                 break;               
+               }
+               if(flag==0) {
+                  i=i-1;
+               }  
+               else
+               break;             
+            }
+             console.log(index);
+            this.lasttoken=this.subresult.substr(index+1);
+            this.beforelasttoken=this.subresult[index];
+            console.log(this.lasttoken);
+             console.log(this.beforelasttoken);
+            
         }
         }
        

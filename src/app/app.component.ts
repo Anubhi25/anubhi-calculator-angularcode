@@ -124,22 +124,12 @@ export class AppComponent {
         if(!((this.prev=='+' && this.curr=='+')
         ||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%')||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+') ||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')||(this.curr=='+/-')))
         {
-            if(this.subresult.length<15) {
+            if(this.subresult.length<15 && this.result.length<15) {
             this.subresult+=value;
-            if(Number.isInteger(eval(this.subresult))) {
+
             this.result=eval(this.subresult);           
-            }
-            else {
-            this.result=eval(this.subresult).toFixed(5);
-            }
-            this.result=this.result.toString();
-            if(this.result.length>3) {
-              var i= this.result.length;
-              var temp=i-3;
-              this.result=this.result.slice(0,temp)+','+this.result.slice(temp);
-                
-            }
-  
+
+            this.result=this.result.toLocaleString();
             this.lasttoken=this.subresult[this.subresult.length-1];
             this.beforelasttoken=this.subresult[this.subresult.length-2];
         }

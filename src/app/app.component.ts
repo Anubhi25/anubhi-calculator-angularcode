@@ -118,12 +118,12 @@ export class AppComponent {
       this.subresult=this.n1.toFixed(3).toString();
       this.result=this.n1.toFixed(3).toString();
     }
-    else if(value=='+'||value=='-'||value=='*'||value=='/'||value=='%') {
+    else if((value=='+'||value=='-'||value=='*'||value=='/'||value=='%')&&!((this.prev=='+'&&this.curr=='*')||(this.prev=='+' && this.curr=='+')||(this.prev=='-' && this.curr=='-')||(this.prev=='*' && this.curr=='*')||(this.prev=='/' && this.curr=='/')||(this.prev=='%' && this.curr=='%'||(this.prev=='%' && this.curr=='/')|| (this.prev=='%' && this.curr=='*')||(this.prev=='%' && this.curr=='-')||(this.prev=='%' && this.curr=='+')||(this.prev=='/' && this.curr=='%')||(this.prev=='/' && this.curr=='*')||(this.prev=='/' && this.curr=='+')||(this.prev=='*' && this.curr=='%')||(this.prev=='*' && this.curr=='/')||(this.prev=='*' && this.curr=='+')||(this.prev=='-' && this.curr=='%')||(this.prev=='-' && this.curr=='/')||(this.prev=='-' && this.curr=='*')||(this.prev=='-' && this.curr=='+')||(this.prev=='+' && this.curr=='%')||(this.prev=='+' && this.curr=='/')||(this.prev=='+' && this.curr=='*')||(this.prev=='.' && this.curr=='%')||(this.prev=='.' && this.curr=='*')||(this.prev=='.' && this.curr=='/')||(this.prev=='.' && this.curr=='-')||(this.prev=='.' && this.curr=='+')||(this.prev=='.'&&this.curr=='.')||(this.curr=='+/-')))) {
+
       this.isFloat='false';
       this.subresult=this.result.toString();
       this.subresult+=value;
     }
-    
     else 
     {
         if(!((this.prev=='+' && this.curr=='+')

@@ -44,30 +44,6 @@ export class AppComponent {
         if(this.subresult.length<15) 
         this.subresult=this.result+this.beforelasttoken+this.lasttoken;
         this.result=eval(this.subresult);
-      } 
-      if((this.subresult.includes('sqrt'))) {
-        var index=this.subresult.indexOf('sqrt');
-        this.required=this.subresult.slice(0,index);
-        this.n1=Number(Math.sqrt(Number(this.required)).toFixed(10));
-        this.result=this.n1.toString();
-      }
-      if((this.subresult.includes('sqr'))) {
-        var index=this.subresult.indexOf('sqr');
-        this.required=this.subresult.slice(0,index);
-        this.n1=Math.pow((Number(this.required)),2);
-        this.result=this.n1.toString();
-      }
-      if((this.subresult.includes('log'))) {
-        var index=this.subresult.indexOf('log');
-        this.required=this.subresult.slice(0,index);
-        this.n1=Number(Math.log(Number(this.required)).toFixed(10));
-        this.result=this.n1.toString();
-      }
-      if((this.subresult.includes('exp'))) {
-        var index=this.subresult.indexOf('exp');
-        this.required=this.subresult.slice(0,index);
-        this.n1=Number(Math.exp(Number(this.required)).toFixed(10));
-        this.result=this.n1.toString();
       }   
     }
     else if((value=='/'&&this.subresult=='')||(value=='+'&&this.subresult=='')||(value=='*'&&this.subresult=='')||(value=='%'&&this.subresult=='')) {
@@ -77,21 +53,49 @@ export class AppComponent {
       if(!this.subresult.includes('sqrt')) {
         this.subresult+=value;
     }
+    if((this.subresult.includes('sqrt'))) {
+        var index=this.subresult.indexOf('sqrt');
+        this.required=this.subresult.slice(0,index);
+        this.n1=Number(Math.sqrt(Number(this.required)).toFixed(3));
+        this.result=this.n1.toString();        
+        this.subresult='sqrt('+this.required+')';
+      }
     }
      else if(value=='sqr') {
       if(!this.subresult.includes('sqr')) {
         this.subresult+=value;
     }
+    if((this.subresult.includes('sqr'))) {
+        var index=this.subresult.indexOf('sqr');
+        this.required=this.subresult.slice(0,index);
+        this.n1=Math.pow((Number(this.required)),2);
+        this.result=this.n1.toString();
+        this.subresult='sqr('+this.required+')';
+      }
     }
      else if(value=='log') {
       if(!this.subresult.includes('log')) {
         this.subresult+=value;
     }
+     if((this.subresult.includes('log'))) {
+        var index=this.subresult.indexOf('log');
+        this.required=this.subresult.slice(0,index);
+        this.n1=Number(Math.log(Number(this.required)).toFixed(3));
+        this.result=this.n1.toString();
+        this.subresult='log('+this.required+')';
+      }
     }
     else if(value=='exp') {
       if(!this.subresult.includes('exp')) {
         this.subresult+=value;
     }
+    if((this.subresult.includes('exp'))) {
+        var index=this.subresult.indexOf('exp');
+        this.required=this.subresult.slice(0,index);
+        this.n1=Number(Math.exp(Number(this.required)).toFixed(3));
+        this.result=this.n1.toString();
+        this.subresult='exp('+this.required+')';
+      } 
     }
     else if(value=='pi') {
       if(!this.subresult.includes('pi')) {
@@ -106,16 +110,17 @@ export class AppComponent {
     }
     else if(value=='+/-') {
       this.required='this.result*(-1)';
-      this.result=eval(this.required);
-      this.subresult=this.result;   
+      this.result=eval(this.required).toString();
+      this.subresult=this.result.toString();   
     }
     else if(value=='1/x') {
       this.n1=1/Number(this.subresult);
-      this.subresult=this.n1.toFixed(5).toString();
-      this.result=this.n1.toFixed(5).toString();
+      this.subresult=this.n1.toFixed(3).toString();
+      this.result=this.n1.toFixed(3).toString();
     }
     else if(value=='+'||value=='-'||value=='*'||value=='/'||value=='%') {
       this.isFloat='false';
+      this.subresult=this.result.toString();
       this.subresult+=value;
     }
     
@@ -126,9 +131,7 @@ export class AppComponent {
         {
             if(this.subresult.length<15 && this.result.length<15) {
             this.subresult+=value;
-
             this.result=eval(this.subresult);           
-
             this.result=this.result.toLocaleString();
             this.lasttoken=this.subresult[this.subresult.length-1];
             this.beforelasttoken=this.subresult[this.subresult.length-2];

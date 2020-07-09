@@ -136,7 +136,6 @@ export class AppComponent {
             this.subresult=this.subresult.toString();
             var flag=0;
             var i=this.subresult.length-1;
-            console.log(this.subresult.length);
             while(i>0) {
               if(this.subresult[i]==='-' || this.subresult[i]==='+' || this.subresult[i]==='/' || this.subresult[i]==='%' || this.subresult[i]==='*') {
                  var index=i;
@@ -149,11 +148,8 @@ export class AppComponent {
                else
                break;             
             }
-             console.log(index);
             this.lasttoken=this.subresult.substr(index+1);
             this.beforelasttoken=this.subresult[index];
-            console.log(this.lasttoken);
-             console.log(this.beforelasttoken);
             
         }
         }

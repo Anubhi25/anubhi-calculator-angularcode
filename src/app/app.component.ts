@@ -44,6 +44,7 @@ export class AppComponent {
         if(this.subresult.length<15) 
         this.subresult=this.result+this.beforelasttoken+this.lasttoken;
         this.result=eval(this.subresult);
+        
       }   
     }
     else if((value=='/'&&this.subresult=='')||(value=='+'&&this.subresult=='')||(value=='*'&&this.subresult=='')||(value=='%'&&this.subresult=='')) {
